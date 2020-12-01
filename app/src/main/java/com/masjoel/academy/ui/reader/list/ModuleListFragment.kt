@@ -14,6 +14,7 @@ import com.masjoel.academy.data.ModuleEntity
 import com.masjoel.academy.ui.reader.CourseReaderActivity
 import com.masjoel.academy.ui.reader.CourseReaderCallback
 import com.masjoel.academy.ui.reader.CourseReaderViewModel
+import com.masjoel.academy.viewmodel.ViewModelFactory
 import kotlinx.android.synthetic.main.fragment_module_list.*
 
 class ModuleListFragment : Fragment(), MyAdapterClickListener {
@@ -34,7 +35,9 @@ class ModuleListFragment : Fragment(), MyAdapterClickListener {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(requireActivity(), ViewModelProvider.NewInstanceFactory())[CourseReaderViewModel::class.java]
+        //viewModel = ViewModelProvider(requireActivity(), ViewModelProvider.NewInstanceFactory())[CourseReaderViewModel::class.java]
+        val factory = ViewModelFactory.getInstance(requireActivity())
+        viewModel = ViewModelProvider(requireActivity(), factory)[CourseReaderViewModel::class.java]
         adapter = ModuleListAdapter(this)
         populateRecyclerView(viewModel.getModules())
 

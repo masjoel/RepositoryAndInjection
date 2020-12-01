@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.masjoel.academy.R
 import com.masjoel.academy.ui.reader.content.ModuleContentFragment
 import com.masjoel.academy.ui.reader.list.ModuleListFragment
+import com.masjoel.academy.viewmodel.ViewModelFactory
 import kotlinx.android.synthetic.main.activity_course_reader.*
 
 class CourseReaderActivity : AppCompatActivity(), CourseReaderCallback {
@@ -17,7 +18,9 @@ class CourseReaderActivity : AppCompatActivity(), CourseReaderCallback {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_course_reader)
-        val viewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory())[CourseReaderViewModel::class.java]
+        //val viewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory())[CourseReaderViewModel::class.java]
+        val factory = ViewModelFactory.getInstance(this)
+        val viewModel = ViewModelProvider(this, factory)[CourseReaderViewModel::class.java]
 
 
         val bundle = intent.extras
