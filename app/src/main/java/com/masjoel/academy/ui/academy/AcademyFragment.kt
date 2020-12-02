@@ -1,10 +1,12 @@
 package com.masjoel.academy.ui.academy
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.masjoel.academy.R
@@ -28,7 +30,14 @@ class AcademyFragment : Fragment() {
             val courses = viewModel.getCourses()
 
             val academyAdapter = AcademyAdapter()
-            academyAdapter.setCourses(courses)
+            //academyAdapter.setCourses(courses)
+            progress_bar.visibility = View.VISIBLE
+            viewModel.getCourses().observe(viewLifecycleOwner, Observer{ courses ->
+                progress_bar.visibility = View.GONE
+                academyAdapter.setCourses(courses)
+                academyAdapter.notifyDataSetChanged()
+            })
+
             with(rv_academy) {
                 layoutManager = LinearLayoutManager(context)
                 setHasFixedSize(true)
